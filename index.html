@@ -4,69 +4,110 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Kalender Booking - Temani Photobooth</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700&family=DM+Sans:wght@400;500;700&display=swap">
-<style>
-:root{--bg:#f2f4f8;--card:#fff;--ink:#141a24;--mute:#6a7385;--line:#e1e5ee;--acc:#0f766e;--acc-ink:#fff;--flash:#ffc93c;--warn:#b42318;--r:14px}
-@media(prefers-color-scheme:dark){:root{--bg:#0f131a;--card:#171d27;--ink:#eef1f6;--mute:#8d97aa;--line:#262e3b;--acc:#2dd4bf;--acc-ink:#06201d;--flash:#ffc93c;--warn:#ff8a7a}}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 'DM Sans',system-ui,sans-serif}
-h1,h2,.mname{font-family:'Bricolage Grotesque','DM Sans',sans-serif}
-.wrap{max-width:1180px;margin:0 auto;padding:20px 16px 48px}
-header{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-bottom:18px}
-h1{font-size:26px;margin:0;letter-spacing:-.5px}
-h1 small{display:block;font:400 13px 'DM Sans';color:var(--mute);letter-spacing:0}
-.tools{display:flex;gap:8px;flex-wrap:wrap}
-button,select,input,textarea{font:inherit;color:inherit}
-.btn{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:8px 14px;cursor:pointer}
-.btn:hover{border-color:var(--acc)}
-.btn.pri{background:var(--acc);color:var(--acc-ink);border-color:var(--acc);font-weight:700}
-:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
-.grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(300px,1fr);gap:18px;align-items:start}
-@media(max-width:900px){.grid{grid-template-columns:1fr}}
-.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px}
-.nav{display:flex;align-items:center;gap:8px;margin-bottom:12px}
-.mname{font-size:22px;font-weight:700;flex:1}
-.nav select{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:7px 8px}
-.dow,.days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}
-.dow div{text-align:center;color:var(--mute);font-size:12px;padding:4px 0}
-.day{min-height:92px;border:1px solid var(--line);border-radius:10px;padding:5px;background:var(--bg);cursor:pointer;overflow:hidden;text-align:left}
-.day.off{opacity:.35;cursor:default}
-.day:not(.off):hover{border-color:var(--acc)}
-.day.sel{border-color:var(--acc);box-shadow:0 0 0 2px var(--acc) inset}
-.day .n{font-weight:700;font-size:13px;display:inline-grid;place-items:center;min-width:22px;height:22px;border-radius:11px}
-.day.today .n{background:var(--flash);color:#141a24}
-.chip{display:block;font-size:11px;line-height:1.3;border-radius:6px;padding:2px 5px;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#141a24}
-.more{font-size:11px;color:var(--mute);margin-top:3px}
-.agenda{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px}
-.ah{grid-column:1/-1;font:700 14px 'Bricolage Grotesque',sans-serif;margin-top:6px;padding-bottom:4px;border-bottom:1px solid var(--line)}
-.ah:first-child{margin-top:0}
-.ac{display:flex;flex-direction:column;gap:6px;text-align:left;border:0;border-radius:12px;padding:12px;color:#141a24;cursor:pointer;min-height:104px}
-.ac:hover{filter:brightness(.97)}
-.ac .at{font-size:13px}.ac b{font-size:15px;line-height:1.3}
-.ap{display:flex;align-items:center;gap:8px;font-size:13px;margin-top:auto}
-.av{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:#fff;font:700 12px 'DM Sans',sans-serif;font-style:normal}
-.as{font-size:11px;font-weight:700;align-self:flex-start;background:rgba(255,255,255,.7);border-radius:99px;padding:1px 8px}
-.nav .btn{padding:8px 13px}
-@media(max-width:600px){input,select.f,textarea{font-size:16px}.wrap{padding:12px 10px 40px}h1{font-size:21px}.card{padding:12px}.tools{width:100%}.tools .btn{flex:1 1 45%;padding:10px 8px;font-size:13px}.day{min-height:54px;padding:3px}.day .n{font-size:12px}.chip{font-size:0;height:5px;padding:0;margin-top:2px}.more{display:none}.mname{font-size:17px}.nav select{display:none}.dow div{font-size:11px}.agenda{grid-template-columns:1fr}.row{grid-template-columns:1fr 1fr}.bk{padding:10px}}
-.legend{font-size:12px;color:var(--mute);margin-top:10px}
-h2{font-size:18px;margin:0 0 10px}
-textarea{width:100%;min-height:150px;border:1px solid var(--line);border-radius:10px;padding:10px;background:var(--bg);resize:vertical}
-label{display:block;font-size:12px;color:var(--mute);margin:8px 0 3px}
-input,select.f{width:100%;border:1px solid var(--line);border-radius:8px;padding:7px 9px;background:var(--bg)}
-.row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.msg{font-size:13px;margin-top:8px;min-height:18px}
-.msg.err{color:var(--warn)}.msg.ok{color:var(--acc)}
-#form{display:none;margin-top:12px;border-top:1px dashed var(--line);padding-top:6px}
-.bk{border:1px solid var(--line);border-left-width:6px;border-radius:10px;padding:10px 12px;margin-bottom:10px;background:var(--bg)}
-.bk b{font-size:15px}.bk div{font-size:13px;color:var(--mute)}
-.bk .t{color:var(--ink);font-weight:700}
-.bk .x{float:right;background:none;border:0;color:var(--warn);cursor:pointer;font-size:13px}
-.tag{display:inline-block;font-size:11px;padding:1px 8px;border-radius:99px;background:var(--flash);color:#141a24;font-weight:700}
-.empty{color:var(--mute);font-size:14px}
-.stack>.card+.card{margin-top:18px}
-</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;600&family=Patrick+Hand&family=Nunito+Sans:wght@400;700;800&display=swap">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"></script>
+<style>
+:root{--bg:#eceff3;--ink:#1d1d1f;--mute:#6b7280;--line:#dfe3ea;--cyan:#33dfe8;--orange:#ff8a3d;--yellow:#ffc85a;--green:#86d06f;--teal:#2c6e5f;--faint:#6fa99b;--purple:#8b5cf6;--red:#d6455d;--warn:#b42318;--hand:'Patrick Hand','Comic Sans MS',cursive}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 'Nunito Sans',system-ui,sans-serif;color-scheme:light}
+button,select,input,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--purple);outline-offset:2px}
+.wrap{max-width:1180px;margin:0 auto;padding:18px 14px 48px}
+header{display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-bottom:16px}
+h1{font:600 24px 'Oswald',sans-serif;margin:0;letter-spacing:.3px}
+h1 small{display:block;font:400 13px 'Nunito Sans';color:var(--mute);letter-spacing:0}
+.tools{display:flex;gap:8px;flex-wrap:wrap}
+.btn{background:#fff;border:1px solid var(--ink);border-radius:10px;padding:8px 14px;cursor:pointer}
+.btn:hover{background:#f6f7f9}
+.btn.pri{background:var(--cyan);font-weight:800}
+.btn:disabled{opacity:.35;cursor:default}
+
+/* kertas kalender */
+.paper{background:#fff;border-radius:18px;box-shadow:0 8px 30px rgba(20,30,50,.08);padding:34px 36px;display:grid;grid-template-columns:270px minmax(0,1fr);grid-template-rows:auto 1fr;column-gap:44px}
+.top{grid-column:1;grid-row:1}
+.notes{grid-column:1;grid-row:2;margin-top:32px}
+.main{grid-column:2;grid-row:1/3}
+.mt{font:600 36px/1 'Oswald',sans-serif;letter-spacing:-.5px;white-space:nowrap}
+.mt span{font-weight:300}
+.nav{display:flex;gap:6px;margin:12px 0 18px}
+.nav .btn{padding:4px 11px}
+.nav select{border:1px solid var(--ink);border-radius:10px;padding:4px 8px;background:#fff;flex:1;min-width:0}
+.mini{display:grid;grid-template-columns:repeat(7,1fr);gap:4px 0;justify-items:center}
+.mini i{font:normal 700 13px 'Nunito Sans';text-align:center;width:100%}
+.mini button{width:28px;height:28px;border-radius:50%;border:0;background:none;font-size:12px;color:#555;cursor:pointer;padding:0}
+.mini .rd{color:var(--red)}
+.mini button.bk{background:var(--c);color:var(--ink)}
+.mini button.today:not(.bk){background:var(--cyan);color:var(--ink)}
+.mini button.sel{background:var(--teal);color:#fff}
+.big{font:40px/1 var(--hand)}
+.sub{font:21px/1.2 var(--hand);margin:2px 0 12px}
+#nlines{border-top:1px solid var(--ink);cursor:pointer}
+.line{display:block;width:100%;text-align:left;background:none;border:0;border-bottom:1px solid var(--ink);height:32px;padding:0 2px;font:18px/30px var(--hand);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+.wk{display:grid;grid-template-columns:repeat(7,1fr);background:var(--cyan);border-radius:14px;padding:12px 0;margin-bottom:20px}
+.wk div{text-align:center;font-weight:800;font-size:14px;line-height:1.1;border-left:1px solid rgba(0,0,0,.55)}
+.wk div:first-child{border:0}
+.wk .s{display:none}
+.days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:10px}
+.d{aspect-ratio:1/.88;border:1px solid var(--ink);border-radius:12px;background:#fff;padding:7px 9px;text-align:left;cursor:pointer;display:flex;flex-direction:column;overflow:hidden;min-width:0}
+.d.bk{background:var(--c)}
+.d .n{font:800 11px 'Nunito Sans';align-self:flex-start}
+.d.today .n{background:var(--cyan);border-radius:7px;padding:0 6px;margin:-1px 0 0 -3px}
+.d .t{margin-top:auto;font:16px/1.15 var(--hand);overflow-wrap:anywhere}
+.d .t span{display:block}
+.d.sel{outline:3px solid var(--purple);outline-offset:-1px}
+.d.out{border-color:var(--line);cursor:default}
+.d.out .n{font-weight:400;color:var(--faint)}
+.legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12px;color:var(--mute);margin-top:16px}
+.legend b{display:inline-block;width:11px;height:11px;border-radius:4px;border:1px solid var(--ink);vertical-align:-1px;margin-right:5px}
+
+/* bagian bawah */
+.below{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-areas:"add detail" "add agenda";gap:18px;margin-top:18px;align-items:start}
+.a-add{grid-area:add}.a-detail{grid-area:detail}.a-agenda{grid-area:agenda}
+.card{background:#fff;border:1px solid var(--ink);border-radius:14px;padding:16px}
+h2{font:600 19px 'Oswald',sans-serif;margin:0 0 10px;letter-spacing:.2px}
+textarea{width:100%;min-height:150px;border:1px solid var(--line);border-radius:10px;padding:10px;background:#f8f9fb;resize:vertical}
+label{display:block;font-size:12px;color:var(--mute);margin:8px 0 3px}
+input,select.f{width:100%;border:1px solid var(--line);border-radius:8px;padding:7px 9px;background:#f8f9fb}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.msg{font-size:13px;margin-top:8px;min-height:18px}
+.msg.err{color:var(--warn)}.msg.ok{color:var(--teal);font-weight:700}
+#form{display:none;margin-top:12px;border-top:1px dashed var(--line);padding-top:6px}
+.bkc{border:1px solid var(--ink);border-left-width:8px;border-radius:10px;padding:10px 12px;margin-bottom:10px}
+.bkc b{font-size:15px}.bkc div{font-size:13px;color:var(--mute)}
+.bkc .t{color:var(--ink);font-weight:700}
+.x{float:right;background:none;border:0;color:var(--warn);cursor:pointer;font-size:13px}
+.tag{display:inline-block;font-size:11px;padding:1px 8px;border-radius:99px;border:1px solid var(--ink);font-weight:700}
+.empty{color:var(--mute);font-size:14px;margin:0}
+.agenda{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px}
+.ah{grid-column:1/-1;font:600 15px 'Oswald',sans-serif;margin-top:6px;padding-bottom:4px;border-bottom:1px solid var(--ink)}
+.ah:first-child{margin-top:0}
+.ac{display:flex;flex-direction:column;gap:6px;text-align:left;border:1px solid var(--ink);border-radius:12px;padding:11px;color:var(--ink);cursor:pointer;min-height:100px}
+.ac .at{font-size:13px}.ac b{font:17px/1.15 var(--hand)}
+.ap{display:flex;align-items:center;gap:8px;font-size:13px;margin-top:auto}
+.av{display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:#fff;border:1px solid var(--ink);font:700 12px 'Nunito Sans';font-style:normal}
+.as{font-size:11px;font-weight:700;align-self:flex-start;background:rgba(255,255,255,.75);border-radius:99px;padding:1px 8px}
+
+@media(max-width:900px){
+  .paper{grid-template-columns:1fr;padding:18px 12px}
+  .top{grid-row:1}.main{grid-column:1;grid-row:2;margin-top:6px}.notes{grid-column:1;grid-row:3}
+  .mini{display:none}.nav{margin-bottom:14px}
+  .below{grid-template-columns:1fr;grid-template-areas:"detail" "add" "agenda"}
+}
+@media(max-width:600px){
+  input,select.f,textarea{font-size:16px}
+  .wrap{padding:12px 10px 40px}
+  h1{font-size:21px}.mt{font-size:30px}
+  .tools{width:100%}.tools .btn{flex:1 1 45%;padding:10px 8px;font-size:13px}
+  .wk{padding:9px 0;margin-bottom:12px}.wk div{font-size:11px}.wk .f{display:none}.wk .s{display:inline}
+  .days{gap:5px}
+  .d{aspect-ratio:1;padding:4px;border-radius:9px}
+  .d .n{font-size:10px}.d .t{display:none}
+  .d.today .n{padding:0 4px}
+  .card{padding:12px}.agenda{grid-template-columns:1fr}
+}
+</style>
 </head>
 <body>
 <div class="wrap">
@@ -81,66 +122,82 @@ input,select.f{width:100%;border:1px solid var(--line);border-radius:8px;padding
   </div>
 </header>
 
-<div class="grid">
-  <div class="stack"><section class="card">
+<section class="paper">
+  <div class="top">
+    <div class="mt"><b id="mm"></b> <span id="yy"></span></div>
     <div class="nav">
       <button class="btn" id="prev" aria-label="Bulan sebelumnya">‹</button>
-      <div class="mname" id="mname"></div>
       <select id="msel" aria-label="Pilih bulan"></select>
       <button class="btn" id="next" aria-label="Bulan berikutnya">›</button>
     </div>
-    <div class="dow" id="dow"></div>
+    <div class="mini" id="mini"></div>
+  </div>
+
+  <div class="notes">
+    <div class="big" id="nbig"></div>
+    <div class="sub" id="nsub"></div>
+    <div id="nlines"></div>
+  </div>
+
+  <div class="main">
+    <div class="wk" id="wk"></div>
     <div class="days" id="days"></div>
-    <div class="legend">Klik tanggal untuk melihat detail booking. Lingkaran kuning = hari ini.</div>
+    <div class="legend">
+      <span><b style="background:var(--yellow)"></b>Menunggu DP</span>
+      <span><b style="background:var(--orange)"></b>DP masuk</span>
+      <span><b style="background:var(--green)"></b>Lunas</span>
+      <span><b style="background:var(--cyan)"></b>Hari ini</span>
+    </div>
+  </div>
+</section>
+
+<div class="below">
+  <section class="card a-add">
+    <h2>Tambah booking dari WhatsApp</h2>
+    <textarea id="paste" placeholder="Tempel format order WhatsApp di sini, contoh:&#10;Nama pengantin/pemesan : Adam-Avie&#10;Nama acara : Wedding Celebration Adam &amp; Avie&#10;Lokasi acara : Lumé Coffee - Wisma Laena Lt.2&#10;Hari/tanggal acara : Kamis, 26 November 2026&#10;Waktu photobooth/waktu acara : 12.15 - 14.15&#10;Paket yang dipilih : Classic (2 jam)&#10;Pilihan backdrop :&#10;Pilihan template :"></textarea>
+    <div style="display:flex;gap:8px;margin-top:8px">
+      <button class="btn pri" id="parse">Baca teks</button>
+      <button class="btn" id="manual">Isi manual</button>
+    </div>
+    <div class="msg" id="msg"></div>
+    <div id="form">
+      <label>Nama pemesan</label><input id="f_name">
+      <label>Nama acara</label><input id="f_event">
+      <label>Lokasi</label><input id="f_loc">
+      <div class="row">
+        <div><label>Tanggal</label><input type="date" id="f_date" min="2026-09-01" max="2027-12-31"></div>
+        <div><label>Paket</label><input id="f_pkg"></div>
+      </div>
+      <div class="row">
+        <div><label>Mulai</label><input type="time" id="f_start"></div>
+        <div><label>Selesai</label><input type="time" id="f_end"></div>
+      </div>
+      <div class="row">
+        <div><label>Backdrop</label><input id="f_bd"></div>
+        <div><label>Template</label><input id="f_tpl"></div>
+      </div>
+      <label>Status pembayaran</label>
+      <select class="f" id="f_st"><option>Menunggu DP</option><option>DP masuk</option><option>Lunas</option></select>
+      <div style="margin-top:12px"><button class="btn pri" id="save">Simpan booking</button></div>
+    </div>
   </section>
-  <section class="card">
+
+  <section class="card a-detail">
+    <h2 id="dtitle">Detail tanggal</h2>
+    <div id="detail"><p class="empty">Pilih tanggal di kalender.</p></div>
+  </section>
+
+  <section class="card a-agenda">
     <h2 id="atitle">Daftar booking</h2>
     <div class="agenda" id="agenda"></div>
-  </section></div>
-
-  <div class="stack">
-    <section class="card">
-      <h2>Tambah booking dari WhatsApp</h2>
-      <textarea id="paste" placeholder="Tempel format order WhatsApp di sini, contoh:&#10;Nama pengantin/pemesan : Adam-Avie&#10;Nama acara : Wedding Celebration Adam &amp; Avie&#10;Lokasi acara : Lumé Coffee - Wisma Laena Lt.2&#10;Hari/tanggal acara : Kamis, 26 November 2026&#10;Waktu photobooth/waktu acara : 12.15 - 14.15&#10;Paket yang dipilih : Classic (2 jam)&#10;Pilihan backdrop :&#10;Pilihan template :"></textarea>
-      <div style="display:flex;gap:8px;margin-top:8px">
-        <button class="btn pri" id="parse">Baca teks</button>
-        <button class="btn" id="manual">Isi manual</button>
-      </div>
-      <div class="msg" id="msg"></div>
-      <div id="form">
-        <label>Nama pemesan</label><input id="f_name">
-        <label>Nama acara</label><input id="f_event">
-        <label>Lokasi</label><input id="f_loc">
-        <div class="row">
-          <div><label>Tanggal</label><input type="date" id="f_date" min="2026-09-01" max="2027-12-31"></div>
-          <div><label>Paket</label><input id="f_pkg"></div>
-        </div>
-        <div class="row">
-          <div><label>Mulai</label><input type="time" id="f_start"></div>
-          <div><label>Selesai</label><input type="time" id="f_end"></div>
-        </div>
-        <div class="row">
-          <div><label>Backdrop</label><input id="f_bd"></div>
-          <div><label>Template</label><input id="f_tpl"></div>
-        </div>
-        <label>Status pembayaran</label>
-        <select class="f" id="f_st"><option>Menunggu DP</option><option>DP masuk</option><option>Lunas</option></select>
-        <div style="margin-top:12px"><button class="btn pri" id="save">Simpan booking</button></div>
-      </div>
-    </section>
-
-    <section class="card">
-      <h2 id="dtitle">Detail tanggal</h2>
-      <div id="detail"><p class="empty">Pilih tanggal di kalender.</p></div>
-    </section>
-  </div>
+  </section>
 </div>
 </div>
 
 <script>
 const MONTHS=['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
-const DAYS=['Sen','Sel','Rab','Kam','Jum','Sab','Min'];
-const COLORS=['#ffd6e7','#c9f2d9','#fde9b0','#cfe3ff','#d9ccff','#bdf0ee','#ffd0c2'];
+const DF=['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'];
+const SC={'Menunggu DP':'#ffc85a','DP masuk':'#ff8a3d','Lunas':'#86d06f'};
 const START=[2026,8],END=[2027,11]; // bulan 0-based
 const KEY='temani_bookings_v1';
 const $=id=>document.getElementById(id);
@@ -153,7 +210,11 @@ const pad=n=>String(n).padStart(2,'0');
 const iso=(y,m,d)=>`${y}-${pad(m+1)}-${pad(d)}`;
 const idx=(y,m)=>(y-START[0])*12+(m-START[1]);
 const inRange=(y,m)=>{const i=idx(y,m);return i>=0&&i<=idx(END[0],END[1])};
-const color=b=>COLORS[[...b.id].reduce((a,c)=>a+c.charCodeAt(0),0)%COLORS.length];
+const color=b=>SC[b.st]||SC['Menunggu DP'];
+const cmp=(a,b)=>(a.date+(a.start||'')).localeCompare(b.date+(b.start||''));
+const fmt=k=>{const [y,m,d]=k.split('-').map(Number);return `${d} ${MONTHS[m-1]} ${y}`};
+const dayName=k=>{const [y,m,d]=k.split('-').map(Number);return DF[new Date(y,m-1,d).getDay()]};
+const todayIso=()=>{const t=new Date();return iso(t.getFullYear(),t.getMonth(),t.getDate())};
 
 /* ---------- Parser teks WhatsApp ---------- */
 function parseOrder(text){
@@ -213,29 +274,52 @@ function save(){
   cur=[y,m-1];sel=b.date;render();
 }
 
-/* ---------- Kalender ---------- */
+/* ---------- Render ---------- */
 function render(){
-  const [y,m]=cur;
-  $('mname').textContent=`${MONTHS[m]} ${y}`;
-  $('msel').value=idx(y,m);
-  $('prev').disabled=idx(y,m)<=0;$('next').disabled=idx(y,m)>=idx(END[0],END[1]);
-  const first=(new Date(y,m,1).getDay()+6)%7,len=new Date(y,m+1,0).getDate(),today=new Date();
-  const todayIso=iso(today.getFullYear(),today.getMonth(),today.getDate());
-  let h='';
-  for(let i=0;i<first;i++)h+='<div class="day off"></div>';
-  for(let d=1;d<=len;d++){
-    const k=iso(y,m,d),list=bookings.filter(b=>b.date===k).sort((a,b)=>(a.start||'').localeCompare(b.start||''));
-    h+=`<button class="day${k===todayIso?' today':''}${k===sel?' sel':''}" data-d="${k}"><span class="n">${d}</span>`+
-      list.slice(0,3).map(b=>`<span class="chip" style="background:${color(b)}">${esc(b.start||'')} ${esc(b.name)}</span>`).join('')+
-      (list.length>3?`<div class="more">+${list.length-3} lagi</div>`:'')+`</button>`;
+  const [y,m]=cur,i=idx(y,m);
+  $('mm').textContent=MONTHS[m].toUpperCase();$('yy').textContent=y;
+  $('msel').value=i;$('prev').disabled=i<=0;$('next').disabled=i>=idx(END[0],END[1]);
+  const first=new Date(y,m,1).getDay(),len=new Date(y,m+1,0).getDate(),prevLen=new Date(y,m,0).getDate();
+  const td=todayIso(),by={};
+  bookings.forEach(b=>(by[b.date]=by[b.date]||[]).push(b));
+  Object.values(by).forEach(a=>a.sort(cmp));
+
+  // kalender utama
+  const total=Math.ceil((first+len)/7)*7;let h='';
+  for(let c=0;c<total;c++){
+    const d=c-first+1;
+    if(d<1||d>len){h+=`<div class="d out"><span class="n">${pad(d<1?prevLen+d:d-len)}</span></div>`;continue}
+    const k=iso(y,m,d),l=by[k]||[];
+    h+=`<button class="d${l.length?' bk':''}${k===td?' today':''}${k===sel?' sel':''}" data-d="${k}"${l.length?` style="--c:${color(l[0])}"`:''}><span class="n">${pad(d)}</span><span class="t">${l.map(b=>`<span>${esc(b.name)}</span>`).join('')}</span></button>`;
   }
   $('days').innerHTML=h;
-  renderAgenda();
-  $('days').querySelectorAll('.day[data-d]').forEach(el=>el.onclick=()=>{sel=el.dataset.d;render()});
-  renderDetail();
+
+  // kalender mini
+  let mh=['M','S','S','R','K','J','S'].map((x,j)=>`<i class="${j%6?'':'rd'}">${x}</i>`).join('')+'<span></span>'.repeat(first);
+  for(let d=1;d<=len;d++){
+    const k=iso(y,m,d),l=by[k]||[],w=(first+d-1)%7;
+    mh+=`<button data-d="${k}" class="${w%6?'':'rd'}${l.length?' bk':''}${k===td?' today':''}${k===sel?' sel':''}"${l.length?` style="--c:${color(l[0])}"`:''}>${d}</button>`;
+  }
+  $('mini').innerHTML=mh;
+  renderNotes(by);renderAgenda();renderDetail();
 }
-const cmp=(a,b)=>(a.date+(a.start||'')).localeCompare(b.date+(b.start||''));
-const fmt=k=>{const [y,m,d]=k.split('-').map(Number);return `${d} ${MONTHS[m-1]} ${y}`};
+
+function renderNotes(by){
+  const pre=`${cur[0]}-${pad(cur[1]+1)}`;
+  let big='pilih',sub='pilih tanggal di kalender',names=[];
+  if(sel&&sel.startsWith(pre)){
+    const l=by[sel]||[],d=+sel.slice(8);
+    const ty=l[0]&&(l[0].event||'').match(/wedding|birthday|ulang tahun|engagement|lamaran|wisuda|nobar|gathering|reuni|akikah|aqiqah/i);
+    big=l.length?(ty?ty[0].toLowerCase():'event'):'kosong';
+    sub=l.length?`tanggal ${d} ada ${l.length} event`:`tanggal ${d} belum ada event`;
+    names=l.map(b=>b.name);
+  }
+  $('nbig').textContent=big;$('nsub').textContent=sub;
+  let h=names.map(n=>`<button class="line">${esc(n)}</button>`).join('');
+  for(let i=names.length;i<5;i++)h+='<div class="line"></div>';
+  $('nlines').innerHTML=h;
+}
+
 function renderAgenda(){
   const [y,m]=cur,pre=`${y}-${pad(m+1)}`;
   const list=bookings.filter(b=>b.date.startsWith(pre)).sort(cmp);
@@ -243,39 +327,23 @@ function renderAgenda(){
   if(!list.length){$('agenda').innerHTML='<p class="empty" style="grid-column:1/-1">Belum ada booking di bulan ini.</p>';return}
   let h='',last='';
   list.forEach(b=>{
-    if(b.date!==last){last=b.date;const [yy,mm,dd]=b.date.split('-').map(Number);
-      h+=`<div class="ah">${['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'][new Date(yy,mm-1,dd).getDay()]}, ${dd} ${MONTHS[mm-1]}</div>`}
+    if(b.date!==last){last=b.date;h+=`<div class="ah">${dayName(b.date)}, ${+b.date.slice(8)} ${MONTHS[m]}</div>`}
     h+=`<button class="ac" data-d="${b.date}" style="background:${color(b)}"><span class="at">${esc(b.start||'?')} – ${esc(b.end||'?')}</span><b>${esc(b.event||b.name)}</b><span class="ap"><i class="av">${esc((b.name||'?')[0].toUpperCase())}</i>${esc(b.name)}</span><span class="as">${esc(b.st)}</span></button>`;
   });
   $('agenda').innerHTML=h;
-  $('agenda').querySelectorAll('.ac').forEach(el=>el.onclick=()=>{sel=el.dataset.d;render();$('detail').scrollIntoView({behavior:'smooth',block:'center'})});
 }
-function exportPDF(all){
-  if(!window.jspdf){alert('Library PDF belum termuat. Pastikan internet aktif lalu muat ulang halaman.');return}
-  const [y,m]=cur,pre=`${y}-${pad(m+1)}`;
-  const list=bookings.filter(b=>all||b.date.startsWith(pre)).sort(cmp);
-  if(!list.length){alert('Belum ada booking untuk diekspor.');return}
-  const doc=new window.jspdf.jsPDF({orientation:'landscape'});
-  doc.setFontSize(16);doc.text('Jadwal Booking - Temani Photobooth',14,16);
-  doc.setFontSize(10);doc.text(all?'Semua booking':`${MONTHS[m]} ${y}`,14,22);
-  doc.autoTable({startY:27,styles:{fontSize:8,cellPadding:2},headStyles:{fillColor:[15,118,110]},
-    head:[['Tanggal','Jam','Pemesan','Acara','Lokasi','Paket','Backdrop','Template','Status']],
-    body:list.map(b=>[fmt(b.date),`${b.start||'?'} - ${b.end||'?'}`,b.name,b.event,b.loc,b.pkg,b.bd,b.tpl,b.st].map(v=>v||'-'))});
-  doc.save(all?'booking-temani-semua.pdf':`booking-temani-${pre}.pdf`);
-}
+
 function renderDetail(){
-  if(!sel){return}
-  const [y,m,d]=sel.split('-').map(Number);
-  const dt=new Date(y,m-1,d);
-  $('dtitle').textContent=`${['Minggu','Senin','Selasa','Rabu','Kamis','Jumat','Sabtu'][dt.getDay()]}, ${d} ${MONTHS[m-1]} ${y}`;
-  const list=bookings.filter(b=>b.date===sel).sort((a,b)=>(a.start||'').localeCompare(b.start||''));
-  $('detail').innerHTML=list.length?list.map(b=>`<div class="bk" style="border-left-color:${color(b)}">
+  if(!sel)return;
+  $('dtitle').textContent=`${dayName(sel)}, ${fmt(sel)}`;
+  const list=bookings.filter(b=>b.date===sel).sort(cmp);
+  $('detail').innerHTML=list.length?list.map(b=>`<div class="bkc" style="border-left-color:${color(b)}">
     <button class="x" data-del="${b.id}">Hapus</button>
     <b>${esc(b.name)}</b> <span class="tag">${esc(b.st)}</span>
     <div class="t">${esc(b.start||'?')} – ${esc(b.end||'?')} · ${esc(b.pkg||'-')}</div>
     <div>${esc(b.event||'-')}</div><div>Lokasi: ${esc(b.loc||'-')}</div>
     <div>Backdrop: ${esc(b.bd||'-')} · Template: ${esc(b.tpl||'-')}</div>
-    <button class="x" style="float:none;color:var(--acc);padding:4px 0" data-edit="${b.id}">Ubah</button></div>`).join('')
+    <button class="x" style="float:none;color:var(--teal);padding:4px 0;font-weight:700" data-edit="${b.id}">Ubah</button></div>`).join('')
     :'<p class="empty">Belum ada booking di tanggal ini. Tanggal masih kosong.</p>';
   $('detail').querySelectorAll('[data-del]').forEach(el=>el.onclick=()=>{
     if(confirm('Hapus booking ini?')){bookings=bookings.filter(x=>x.id!==el.dataset.del);persist();render()}});
@@ -284,18 +352,43 @@ function renderDetail(){
     $('form').scrollIntoView({behavior:'smooth',block:'center'})});
 }
 
+/* ---------- PDF ---------- */
+function exportPDF(all){
+  if(!window.jspdf){alert('Library PDF belum termuat. Pastikan internet aktif lalu muat ulang halaman.');return}
+  const [y,m]=cur,pre=`${y}-${pad(m+1)}`;
+  const list=bookings.filter(b=>all||b.date.startsWith(pre)).sort(cmp);
+  if(!list.length){alert('Belum ada booking untuk diekspor.');return}
+  const doc=new window.jspdf.jsPDF({orientation:'landscape'});
+  doc.setFontSize(16);doc.text('Jadwal Booking - Temani Photobooth',14,16);
+  doc.setFontSize(10);doc.text(all?'Semua booking':`${MONTHS[m]} ${y}`,14,22);
+  doc.autoTable({startY:27,styles:{fontSize:8,cellPadding:2},headStyles:{fillColor:[44,110,95]},
+    head:[['Tanggal','Jam','Pemesan','Acara','Lokasi','Paket','Backdrop','Template','Status']],
+    body:list.map(b=>[fmt(b.date),`${b.start||'?'} - ${b.end||'?'}`,b.name,b.event,b.loc,b.pkg,b.bd,b.tpl,b.st].map(v=>v||'-'))});
+  doc.save(all?'booking-temani-semua.pdf':`booking-temani-${pre}.pdf`);
+}
+
 /* ---------- Init ---------- */
 (function init(){
   load();
-  $('dow').innerHTML=DAYS.map(d=>`<div>${d}</div>`).join('');
-  let o='';for(let i=0;i<=idx(END[0],END[1]);i++){const t=START[1]+i;o+=`<option value="${i}">${MONTHS[t%12].slice(0,3)} ${START[0]+Math.floor(t/12)}</option>`}
+  $('wk').innerHTML=DF.map(d=>`<div><span class="f">${d}</span><span class="s">${d.slice(0,3)}</span></div>`).join('');
+  let o='';for(let i=0;i<=idx(END[0],END[1]);i++){const t=START[1]+i;o+=`<option value="${i}">${MONTHS[t%12]} ${START[0]+Math.floor(t/12)}</option>`}
   $('msel').innerHTML=o;
-  const n=new Date(),i=idx(n.getFullYear(),n.getMonth());
-  cur=(i>=0&&i<=idx(END[0],END[1]))?[n.getFullYear(),n.getMonth()]:[START[0],START[1]];
-  const go=k=>{const t=START[1]+k;cur=[START[0]+Math.floor(t/12),t%12];render()};
+  const n=new Date();
+  cur=inRange(n.getFullYear(),n.getMonth())?[n.getFullYear(),n.getMonth()]:[START[0],START[1]];
+  sel=inRange(n.getFullYear(),n.getMonth())?todayIso():iso(cur[0],cur[1],1);
+  const go=k=>{
+    const t=START[1]+k;cur=[START[0]+Math.floor(t/12),t%12];
+    sel=todayIso().startsWith(`${cur[0]}-${pad(cur[1]+1)}`)?todayIso():iso(cur[0],cur[1],1);render();
+  };
   $('prev').onclick=()=>go(idx(...cur)-1);
   $('next').onclick=()=>go(idx(...cur)+1);
   $('msel').onchange=e=>go(+e.target.value);
+  ['days','mini','agenda'].forEach(id=>$(id).onclick=e=>{
+    const el=e.target.closest('[data-d]');if(!el)return;
+    sel=el.dataset.d;render();
+    if(id!=='mini')$('detail').scrollIntoView({behavior:'smooth',block:'nearest'});
+  });
+  $('nlines').onclick=()=>$('detail').scrollIntoView({behavior:'smooth',block:'nearest'});
   $('parse').onclick=()=>{
     const t=$('paste').value.trim();
     if(!t){say('Tempel teks order WhatsApp dulu.','err');return}
